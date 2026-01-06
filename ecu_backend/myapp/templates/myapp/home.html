@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ECU Debug Port Lock System</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: #111;
+            padding: 30px;
+            width: 650px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,255,255,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #00ffff;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            margin-top: 8px;
+        }
+
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 12px;
+            background: #00ffff;
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00cccc;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            background: #222;
+            border-left: 4px solid #00ffff;
+        }
+
+        .warning {
+            background: #330000;
+            padding: 12px;
+            border-left: 5px solid red;
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            margin-top: 10px;
+            background: black;
+            color: #00ff00;
+            border: none;
+            padding: 10px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🔐 ECU Debug Port Lock System</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>Enter ECU ID</label>
+        <input type="text" name="ecu_id" required>
+        <button type="submit">Generate 256-bit Secure Key</button>
+    </form>
+
+    {% if message %}
+        <div class="message">{{ message }}</div>
+    {% endif %}
+
+    {% if password %}
+        <div class="warning">
+            ⚠️ This 256-bit key will be shown ONLY ONCE.  
+            Copy and store it securely.
+        </div>
+
+        <p><b>ECU ID:</b> {{ ecu_id }}</p>
+
+        <textarea rows="4" readonly>{{ password }}</textarea>
+    {% endif %}
+</div>
+
+</body>
+</html>
