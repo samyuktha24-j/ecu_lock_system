@@ -4,16 +4,14 @@ import os
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# ========================
 # SECURITY
 # ========================
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key-for-local')
+SECRET_KEY = 'unsafe-secret-key-for-local'
 
-DEBUG = False
+DEBUG = True   # ← For local development
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # ========================
@@ -37,7 +35,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # ❌ Removed Whitenoise (not needed locally)
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -71,7 +69,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ecu_backend.wsgi.application'
 
 
-# ========================
 # DATABASE
 # ========================
 
@@ -83,7 +80,6 @@ DATABASES = {
 }
 
 
-# ========================
 # PASSWORD VALIDATION
 # ========================
 
@@ -103,7 +99,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# ========================
 # INTERNATIONALIZATION
 # ========================
 
@@ -113,16 +108,15 @@ USE_I18N = True
 USE_TZ = True
 
 
-# ========================
-# STATIC FILES (RENDER)
+# STATIC FILES (LOCAL)
 # ========================
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# ❌ Removed STATICFILES_STORAGE for local use
 
 
-# ========================
 # DEFAULT PRIMARY KEY
 # ========================
 
